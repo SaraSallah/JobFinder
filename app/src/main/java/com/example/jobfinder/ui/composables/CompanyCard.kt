@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jobfinder.ui.theme.Shapes
+import com.example.jobfinder.ui.theme.Typography
 
 @Composable
 fun CompanyCard(
@@ -34,18 +37,28 @@ fun CompanyCard(
         )
 
     ) {Row(
-        modifier = Modifier.fillMaxSize()
-            .padding(horizontal = 8.dp , vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 8.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ){
-
         ImageNetwork(
-            imageUrl = imageUrl
+            imageUrl = imageUrl,
+            modifier = Modifier
+                .size(120.dp)
+                .clip(Shapes.medium)
         )
         Column {
-            Text(text = jobTitle)
-            Text(text = companyName)
+            Text(
+                text = jobTitle,
+                style = Typography.displayMedium
+            )
+            Text(
+                text = companyName,
+                style = Typography.displayMedium
+            )
+
         }}
     }
 

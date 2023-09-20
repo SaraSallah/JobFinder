@@ -16,4 +16,5 @@ fun JobDto.toJobDetails() = JobDetails(
     publishedDate = publicationDate ?: "",
     jobType = jobType ?: "",
     description = description ?: "",
+    location = candidateRequiredLocation ?:""
     )

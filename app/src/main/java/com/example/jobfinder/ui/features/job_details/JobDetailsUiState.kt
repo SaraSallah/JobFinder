@@ -21,6 +21,7 @@ data class JobUiState(
     val publishedDate: String = "",
     val salary: String = " ",
     val description: String = "",
+    val location: String = "",
 )
 
 fun JobDetails.toJobUiState(): JobUiState {
@@ -35,8 +36,10 @@ fun JobDetails.toJobUiState(): JobUiState {
         tags = tags,
         jobType = jobType,
         publishedDate = publishedDate,
-        salary = salary
+        salary = salary.returnIfSalaryNotMentioned(salary)
     )
 }
-fun String.returnIfSalaryNotMentioned():String =
-    "Salary not mentioned"
+
+fun String.returnIfSalaryNotMentioned(salary: String): String =
+    if (salary.isBlank()) "Salary not mentioned"
+    else salary

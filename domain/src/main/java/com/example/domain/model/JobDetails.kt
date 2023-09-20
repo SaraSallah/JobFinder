@@ -13,4 +13,5 @@ data class JobDetails(
     val publishedDate: String,
     val salary:String,
     val description: String,
+    val location :String
 )
