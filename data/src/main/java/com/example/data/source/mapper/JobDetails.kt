@@ -1,6 +1,6 @@
-package com.example.data.mapper
+package com.example.data.source.mapper
 
-import com.example.data.model.JobDto
+import com.example.data.source.model.JobDto
 import com.example.domain.model.JobDetails
 
 fun JobDto.toJobDetails() = JobDetails(

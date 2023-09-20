@@ -36,11 +36,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -85,6 +85,17 @@ dependencies {
     //splash
     implementation(Dependencies.splashDependency)
     debugImplementation(Dependencies.composeUiDependency)
+    val retrofit = "2.9.0"
+    val rxJava = "3.0.2"
+
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:$retrofit")
+
+    // rxJava dependency
+    implementation ("io.reactivex.rxjava3:rxandroid:$rxJava")
+    implementation ("io.reactivex.rxjava3:rxandroid:$rxJava")
+    // Add other dependencies as needed
 
     //navigation
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
