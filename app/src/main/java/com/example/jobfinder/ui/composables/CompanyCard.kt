@@ -16,10 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jobfinder.ui.theme.Shapes
-import com.example.jobfinder.ui.theme.Typography
+import com.example.jobfinder.ui.theme.dimens
 
 @Composable
 fun CompanyCard(
@@ -34,41 +35,62 @@ fun CompanyCard(
             .height(124.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp,
-        )
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onTertiary
+        ),
+        shape = MaterialTheme.shapes.medium
 
-    ) {Row(
+
+    ) {
+        Row(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
+            .fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically
     ){
         ImageNetwork(
             imageUrl = imageUrl,
+            contentDescription = "Company Logo",
+
             modifier = Modifier
                 .size(120.dp)
-                .clip(Shapes.medium)
+                .clip(Shapes.medium),
+            contentScale = ContentScale.Crop
+
         )
-        Column {
+        Column (
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+                .padding(
+                    vertical = MaterialTheme.dimens.space16,
+                    horizontal = MaterialTheme.dimens.space8
+                ),
+            verticalArrangement = Arrangement.SpaceBetween
+        ){
             Text(
                 text = jobTitle,
-                style = Typography.displayMedium
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    MaterialTheme.colorScheme.onSecondary
+                )
             )
             Text(
                 text = companyName,
-                style = Typography.displayMedium
-            )
+                style = MaterialTheme.typography.bodySmall.
+                        copy(
+                    MaterialTheme.colorScheme.onSecondary
+                )            )
 
         }}
     }
 
 }
 
-@Preview
+@Preview(widthDp = 320)
 @Composable
 fun PreviewCompanyCard() {
     CompanyCard(
-    imageUrl = "https://i.pinimg.com/originals/0a/0b/9a/0a0b9a4b5b5b3b0b5b5b5b5b5b5b5b5b.jpg",
+    imageUrl ="https://picsum.photos/200/300",
         jobTitle = "Ui/Ux Designer",
         companyName = "AirBnB"
     )

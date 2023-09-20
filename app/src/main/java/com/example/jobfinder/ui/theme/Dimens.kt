@@ -26,4 +26,8 @@ data class Dimens(
     val space112: Dp = 112.dp,
     val space100: Dp = 100.dp,
     val space198: Dp = 198.dp,
+
+    val card: Dp = 120.dp,
+    val cardHeight: Dp = 100.dp,
+
     )
