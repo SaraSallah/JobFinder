@@ -39,7 +39,7 @@ class SearchViewModel @Inject constructor(
      override fun onSearchTextChange(text : String ){
         _state.update { it.copy(isLoading = true , query = text) }
         viewModelScope.launch{actionStream.emit(text)}
-         searchForJob()
+//         searchForJob()
 
      }
     @OptIn(FlowPreview::class)

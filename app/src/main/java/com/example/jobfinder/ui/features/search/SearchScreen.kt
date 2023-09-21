@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jobfinder.R
 import com.example.jobfinder.ui.composables.ContentVisibility
+import com.example.jobfinder.ui.composables.Loading
 import com.example.jobfinder.ui.features.search.composble.JobCard
 import com.example.jobfinder.ui.features.search.composble.SearchTextField
 import com.example.jobfinder.ui.theme.dimens
@@ -52,6 +53,7 @@ fun SearchContent(
                 iconPainter = painterResource(id = R.drawable.icon_search)
             )
         }
+        Loading(state = state.isLoading)
 
         ContentVisibility(state = state.jobs.isNotEmpty() && !state.isLoading) {
             LazyColumn(
@@ -67,7 +69,6 @@ fun SearchContent(
                         imageUrl = job.companyLogo,
                         jobTitle = job.title,
                         companyName = job.companyName,
-                        jopType = job.jobType,
                         tags = job.tags,
                         location = job.location,
                         date = job.publishedDate

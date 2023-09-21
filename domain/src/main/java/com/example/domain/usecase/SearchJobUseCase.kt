@@ -7,6 +7,6 @@ import javax.inject.Inject
 class SearchJobUseCase @Inject constructor(
     private val jobFinderRepository: JobFinderRepository
 ){
-    suspend operator fun invoke(query : String,limit :Int =10) :List<JobDetails> =
+    suspend operator fun invoke(query : String,limit :Int =15) :List<JobDetails> =
         jobFinderRepository.searchJobList(keyWord =query , limit =limit)
 }
