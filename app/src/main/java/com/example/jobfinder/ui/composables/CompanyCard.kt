@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,12 +15,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jobfinder.ui.theme.Shapes
+import com.example.jobfinder.R
 import com.example.jobfinder.ui.theme.dimens
 
 @Composable
@@ -50,19 +49,20 @@ fun CompanyCard(
     ){
         ImageNetwork(
             imageUrl = imageUrl,
-            contentDescription = "Company Logo",
+            contentDescription = stringResource(R.string.company_logo),
 
             modifier = Modifier
                 .weight(0.3f),
             contentScale = ContentScale.Crop
 
         )
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxHeight()
                 .weight(0.7f)
                 .padding(
-                    MaterialTheme.dimens.space8),
+                    MaterialTheme.dimens.space8
+                ),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ){

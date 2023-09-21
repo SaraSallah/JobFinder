@@ -5,7 +5,6 @@ import com.example.domain.usecase.GetJobDetailsUseCase
 import com.example.jobfinder.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
 import org.xml.sax.ErrorHandler
 import javax.inject.Inject
 
@@ -14,7 +13,7 @@ class JobDetailsViewModel @Inject constructor(
     private val getJobDetails: GetJobDetailsUseCase,
 ) : BaseViewModel<JobDetailsUiState, JobDetailsUiEffect>(JobDetailsUiState()) {
     override val TAG: String = this::class.simpleName.toString()
-    private val jobId  :Int = 1773600
+    private val jobId: Int = 1773876
     init {
         getJobDetails()
 
