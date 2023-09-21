@@ -3,6 +3,7 @@ package com.example.jobfinder.ui.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jobfinder.ui.theme.Shapes
@@ -30,12 +32,11 @@ fun CompanyCard(
 ) {
     Card(
         modifier = Modifier
-            .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
             .height(124.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp,
-        ),
+//        elevation = CardDefaults.cardElevation(
+//            defaultElevation = 0.dp,
+//        ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onTertiary
         ),
@@ -46,40 +47,40 @@ fun CompanyCard(
         Row(
         modifier = Modifier
             .fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically
     ){
         ImageNetwork(
             imageUrl = imageUrl,
             contentDescription = "Company Logo",
 
             modifier = Modifier
-                .size(120.dp)
-                .clip(Shapes.medium),
+                .weight(0.3f),
             contentScale = ContentScale.Crop
 
         )
         Column (
             modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
+                .fillMaxHeight()
+                .weight(0.7f)
                 .padding(
-                    vertical = MaterialTheme.dimens.space16,
-                    horizontal = MaterialTheme.dimens.space8
-                ),
-            verticalArrangement = Arrangement.SpaceBetween
+                    MaterialTheme.dimens.space8),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text(
                 text = jobTitle,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    MaterialTheme.colorScheme.onSecondary
-                )
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+
             )
             Text(
                 text = companyName,
-                style = MaterialTheme.typography.bodySmall.
-                        copy(
-                    MaterialTheme.colorScheme.onSecondary
-                )            )
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
 
         }}
     }

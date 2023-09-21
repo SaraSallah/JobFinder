@@ -29,5 +29,6 @@ data class Dimens(
 
     val card: Dp = 120.dp,
     val cardHeight: Dp = 100.dp,
+    val lottieLoading: Dp = 100.dp,
 
     )

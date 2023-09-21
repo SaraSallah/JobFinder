@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jobfinder.ui.composables.CompanyCard
+import com.example.jobfinder.ui.composables.ContentVisibility
+import com.example.jobfinder.ui.composables.Loading
 
 @Composable
 fun JobDetailsScreen(
@@ -24,40 +26,46 @@ fun JobDetailsScreen(
 fun JobDetailsContent(
     state: JobDetailsUiState,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        CompanyCard(
-            imageUrl = state.jobDetails.companyLogo,
-            jobTitle = state.jobDetails.title, companyName = state.jobDetails.companyName
-        )
-        Row() {
-            Column {
-                Text(text = "Salary")
-                Text(text = "Type")
-                Text(text = "Location")
-            }
-            Column {
-                Text(text = state.jobDetails.salary)
-                Text(text = state.jobDetails.jobType)
-                Text(text = state.jobDetails.location)
+    Loading(state = state.isLoading)
+    ContentVisibility(state = !state.isLoading && !state . isError) {
 
-            }
-        }
-        Column {
-            Text(text = "Required")
-            val lists = state.jobDetails.tags
-            LazyColumn() {
-                items(lists.size) { index ->
-                    lists[index]?.let { Text(text = it) }
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+
+
+            CompanyCard(
+                imageUrl = state.jobDetails.companyLogo,
+                jobTitle = state.jobDetails.title, companyName = state.jobDetails.companyName
+            )
+            Row() {
+                Column {
+                    Text(text = "Salary")
+                    Text(text = "Type")
+                    Text(text = "Location")
+                }
+                Column {
+                    Text(text = state.jobDetails.salary)
+                    Text(text = state.jobDetails.jobType)
+                    Text(text = state.jobDetails.location)
 
                 }
             }
+            Column {
+                Text(text = "Required")
+                val lists = state.jobDetails.tags
+                LazyColumn() {
+                    items(lists.size) { index ->
+                        lists[index]?.let { Text(text = it) }
+
+                    }
+                }
+
+
+            }
 
 
         }
-
-
     }
 
 

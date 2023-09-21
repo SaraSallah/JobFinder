@@ -6,6 +6,7 @@ import com.example.jobfinder.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
+import org.xml.sax.ErrorHandler
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,7 +14,7 @@ class JobDetailsViewModel @Inject constructor(
     private val getJobDetails: GetJobDetailsUseCase,
 ) : BaseViewModel<JobDetailsUiState, JobDetailsUiEffect>(JobDetailsUiState()) {
     override val TAG: String = this::class.simpleName.toString()
-    private val jobId  :Int = 1788491
+    private val jobId  :Int = 1773600
     init {
         getJobDetails()
 
@@ -23,18 +24,20 @@ class JobDetailsViewModel @Inject constructor(
         tryToExecute(
             {getJobDetails.getJobDetails(jobId)},
             ::onGetJobDetailsSuccess,
-            {}
+            ::onGetJobDetailsError
         )
-        log(_state.value.jobDetails.toString())
-        val runBlock = runBlocking{
-            getJobDetails.getJobDetails(jobId).toString()
-        }
-
     }
     private fun onGetJobDetailsSuccess(jobDetails :JobDetails?){
         _state.update { it.copy(isLoading = false ,
             jobDetails =jobDetails!!.toJobUiState() ) }
         log(_state.value.jobDetails.toString())
+    }
+    private fun onGetJobDetailsError(error: ErrorHandler){
+        _state.update{
+            it.copy(isLoading = false , isError = true)
+
+        }
+
     }
 
 }

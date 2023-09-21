@@ -9,6 +9,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
@@ -20,26 +21,57 @@ import androidx.core.view.WindowCompat
 private val localDimens = compositionLocalOf { Dimens() }
 
 private val DarkColorScheme = darkColorScheme(
+    primaryContainer = darkBackground400,
     primary = primary100,
-    secondary = PurpleGrey80,
+//    inverseSurface = primary16,
+    surface = grey,
+    onPrimary = darkText87,
+    secondary = darkBackground200,
     onSecondary = white,
-    tertiary = darkBackground400,
+    background = darkBackground200,
     onBackground = black60,
     error = darkError,
-    background = darkBackground200,
+    secondaryContainer = darkBackground400,
+    onSecondaryContainer = darkText37,
+    tertiary = darkBackground400,
+    onTertiary = darkBackground300,
+    onTertiaryContainer = black37,
+    tertiaryContainer = darkBackground300,
+    onSurfaceVariant = blackOn60,
+    errorContainer = darkBackground400,
+    inverseOnSurface = darkBackground300,
+    onError = primary100,
+    onErrorContainer = black37,
+    outlineVariant = white,
 
 
     )
 
 private val LightColorScheme = lightColorScheme(
+    primaryContainer = white,
     primary = primary100,
-    secondary = PurpleGrey40,
-    tertiary = white,
+//    inverseSurface = primary16,
+    surface = white,
+    onPrimary = white,
+    secondary = white,
     onSecondary = black87,
-    error = error,
-    onBackground = black60,
     background = background,
+    onBackground = black60,
+//    error = kotlin.error,
+    secondaryContainer = white100,
+    onSecondaryContainer = black37,
+    tertiary = white,
+    onTertiary = white,
+    onTertiaryContainer = black16,
+    tertiaryContainer = white30,
+    onSurfaceVariant = white87,
+    errorContainer = primary100,
+    inverseOnSurface = primary100,
+    onError = white,
+    onErrorContainer = primary100,
+    outlineVariant = black8,
 
+    )
 
 
 
@@ -52,7 +84,7 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
     */
-)
+
 
 val MaterialTheme.dimens: Dimens
     @Composable
@@ -66,15 +98,9 @@ fun JobFinderTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -84,9 +110,12 @@ fun JobFinderTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(localDimens provides Dimens()) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            shapes = Shapes,
+            content = content,
+        )
+    }
 }
