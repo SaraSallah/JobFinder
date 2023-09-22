@@ -10,7 +10,7 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val primary100 = Color(0xFF4782F3)
+val primary100 = Color(0xFF5592F7)
 val error = Color(0xFFFF4E33)
 
 val blackOn60 = Color(0x99000000)

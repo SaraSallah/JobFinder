@@ -11,12 +11,12 @@ sealed class BottomBarItems(
 object Home : BottomBarItems(
     route =Graph.Home ,
     label = R.string.home,
-    icon =3
+    icon =R.drawable.home,
 )
 object Profile : BottomBarItems(
     route = Graph.Profile ,
     label = R.string.profile ,
-    icon = 5 ,
+    icon = R.drawable.ic_person ,
 )
 object Search :BottomBarItems(
     route = Graph.Search ,
