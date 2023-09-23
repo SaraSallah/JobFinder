@@ -1,8 +1,10 @@
 package com.example.data.repository
 
+import com.example.data.source.mapper.toCategory
 import com.example.data.source.mapper.toJobDetails
 import com.example.data.source.network.JobFinderService
 import com.example.data.utils.Results
+import com.example.domain.model.Category
 import com.example.domain.model.JobDetails
 import com.example.domain.repository.JobFinderRepository
 import javax.inject.Inject
@@ -25,7 +27,12 @@ class JobFinderRepositoryImp @Inject constructor(
 //        }!!
                 ?.map { it!!.toJobDetails() }
         }.toData() ?: emptyList()
+    override suspend fun getAllCategory() :List<Category> =
+        wrap {
+            jobFinderService.getAllCategory().category!!.map { it!!.toCategory() }
+        }.toData() ?: emptyList()
 }
+
 
 inline fun <T> wrap(block: () -> T): Results<T> {
     return try {

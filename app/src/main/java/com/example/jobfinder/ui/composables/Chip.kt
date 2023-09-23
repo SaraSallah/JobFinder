@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jobfinder.ui.theme.dimens
 
@@ -32,5 +33,37 @@ fun CategoryChip(
         )
 
     }
+}
+@Composable
+fun CustomChip(
+    text: String,
+) {
+    Card(
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onTertiary),
+        border = BorderStroke(width = 1.dp, color =MaterialTheme.colorScheme.onErrorContainer),
+        shape = CircleShape
+    ) {
+        Text(
+            modifier = Modifier.padding(
+                horizontal = MaterialTheme.dimens.space16, vertical = MaterialTheme.dimens.space6
+            ),
+            text = text,
+            color = MaterialTheme.colorScheme.onSecondary,
+//            style = .copy(baselineShift = BaselineShift(0.3f))
+        )
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCategoryChip() {
+    CategoryChip(text = "Designer")
+    
+}
+@Preview(showBackground = true)
+@Composable
+fun PreviewCustomChip() {
+    CustomChip(text = "Designer")
 
 }

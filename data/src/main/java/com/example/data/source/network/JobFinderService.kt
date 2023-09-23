@@ -1,5 +1,6 @@
 package com.example.data.source.network
 
+import com.example.data.source.model.CategoriesDto
 import com.example.data.source.model.JobsDto
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,5 +17,7 @@ interface JobFinderService {
         @Query("search") keyword: String?,
     ): JobsDto
 
+    @GET("remote-jobs/categories")
+    suspend fun getAllCategory() : CategoriesDto
 
 }

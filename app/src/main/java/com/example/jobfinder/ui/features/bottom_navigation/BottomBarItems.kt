@@ -24,7 +24,7 @@ sealed class BottomBarItems(
     object Favorite : BottomBarItems(
         route = Screen.FavoriteScreen.route,
         label = R.string.favorite,
-        icon = R.drawable.home
+        icon = R.drawable.save
     )
 
     object Profile : BottomBarItems(

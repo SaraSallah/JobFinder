@@ -1,7 +1,11 @@
 package com.example.jobfinder.ui.features.search
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.domain.model.JobDetails
 import com.example.jobfinder.ui.features.job_details.JobUiState
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 data class SearchUiState(
     val isLoading: Boolean = false,
@@ -22,7 +26,7 @@ fun List<JobDetails>.toSearchForJobUiState():List<JobUiState>{
             category = it.category ,
             tags = it.tags ,
             jobType = it.jobType ,
-            publishedDate = it.publishedDate ,
+             publishedDate = it.publishedDate ,
             salary = it.salary  ,
             description = it.description ,
             location = it.location

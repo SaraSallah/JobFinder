@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jobfinder.R
 import com.example.jobfinder.ui.composables.ContentVisibility
+import com.example.jobfinder.ui.composables.JobCards
 import com.example.jobfinder.ui.composables.Loading
 import com.example.jobfinder.ui.features.search.composble.JobCard
 import com.example.jobfinder.ui.features.search.composble.SearchTextField
@@ -65,10 +66,20 @@ fun SearchContent(
             ) {
                 items(state.jobs.size) { index ->
                     val job = state.jobs[index]
-                    JobCard(
+//                    JobCard(
+//                        imageUrl = job.companyLogo,
+//                        jobTitle = job.title,
+//                        companyName = job.companyName,
+//                        tags = job.tags,
+//                        location = job.location,
+//                        date = job.publishedDate
+//                    )
+                    JobCards(
                         imageUrl = job.companyLogo,
                         jobTitle = job.title,
-                        companyName = job.companyName,
+                        companyName =job.companyName ,
+                        jobType = job.jobType,
+                        category = job.category,
                         tags = job.tags,
                         location = job.location,
                         date = job.publishedDate
@@ -78,9 +89,9 @@ fun SearchContent(
 
         }
 
-        ContentVisibility(state = state.jobs.isEmpty()) {
+        ContentVisibility(state = state.query.isBlank()) {
             Image(
-                painter = painterResource(id = R.drawable.placeholder),
+                painter = painterResource(id = R.drawable.place_holder_search),
                 contentDescription = ""
             )
         }
