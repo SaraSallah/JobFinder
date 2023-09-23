@@ -10,13 +10,18 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private val BASE_URL = "https://remotive.com/api/"
+    private const val BASE_URL = "https://remotive.com/api/"
+    // Timeout values in seconds
+    private const val CONNECTION_TIMEOUT = 30L
+    private const val READ_TIMEOUT = 30L
+    private const val WRITE_TIMEOUT = 30L
     @Singleton
     @Provides
     fun provideRetrofit(
@@ -37,9 +42,11 @@ object NetworkModule {
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
-//            addInterceptor()
-
+            connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
         }.build()
+
 
     @Singleton
     @Provides

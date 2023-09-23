@@ -1,11 +1,12 @@
-package com.example.jobfinder.ui.features.home
+package com.example.jobfinder.ui.features.favorite
 
 import com.example.jobfinder.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() :
-    BaseViewModel<HomeUiState, HomeUiEffect>(HomeUiState()) {
+class FavoriteViewModel @Inject constructor() : BaseViewModel<FavoriteUiState, FavoriteUiEffect>(
+    FavoriteUiState()
+) {
     override val TAG: String =this ::class.simpleName.toString()
 }

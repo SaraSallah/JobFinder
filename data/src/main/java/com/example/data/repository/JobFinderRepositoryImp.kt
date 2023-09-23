@@ -20,8 +20,10 @@ class JobFinderRepositoryImp @Inject constructor(
 
     override suspend fun searchJobList(limit: Int?, keyWord: String): List<JobDetails> =
         wrap {
-            limit?.let { jobFinderService.searchJobList(it, keyWord).jobs }!!
-                .map { it!!.toJobDetails() }
+//            limit?.let {
+                jobFinderService.searchJobList( keyWord).jobs
+//        }!!
+                ?.map { it!!.toJobDetails() }
         }.toData() ?: emptyList()
 }
 

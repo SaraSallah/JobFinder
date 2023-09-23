@@ -1,4 +1,6 @@
 package com.example.jobfinder.ui.features.home
 
-class HomeUiEffect {
+import com.example.jobfinder.ui.base.BaseUiEffect
+
+interface HomeUiEffect :BaseUiEffect {
 }

@@ -1,4 +1,5 @@
 package com.example.jobfinder.ui.features.profile
 
-class ProfileUiEffect {
-}
+import com.example.jobfinder.ui.base.BaseUiEffect
+
+interface ProfileUiEffect :BaseUiEffect

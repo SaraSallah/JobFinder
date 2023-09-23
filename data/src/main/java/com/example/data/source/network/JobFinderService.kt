@@ -12,7 +12,7 @@ interface JobFinderService {
 
     @GET("remote-jobs")
     suspend fun searchJobList(
-        @Query("limit") limit: Int,
+//        @Query("limit") limit: Int,
         @Query("search") keyword: String?,
     ): JobsDto
 
