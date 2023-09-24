@@ -8,4 +8,5 @@ sealed class Screen(val route :String){
     object FavoriteScreen : Screen ("favoriteScreen")
     object SearchScreen :Screen ("searchScreen")
     object JobDetailsScreen :Screen("jobDetailsScreen")
+    object CategoryScreen : Screen("categoryScreen")
 }

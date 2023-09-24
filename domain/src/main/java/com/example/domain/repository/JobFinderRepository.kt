@@ -8,4 +8,5 @@ interface JobFinderRepository {
     suspend fun getLimitedJobList(limit: Int): List<JobDetails>
     suspend fun searchJobList(limit: Int?, keyWord: String): List<JobDetails>
     suspend fun getAllCategory(): List<Category>
+    suspend fun getAllJobsFromCategory(category: String): List<JobDetails>
 }

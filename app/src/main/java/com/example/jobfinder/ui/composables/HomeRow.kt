@@ -1,5 +1,6 @@
 package com.example.jobfinder.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.example.jobfinder.ui.theme.dimens
 
 @Composable
-fun HomeRow(text : String) {
+fun HomeRow(
+    text: String,
+    onClick: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -27,14 +31,16 @@ fun HomeRow(text : String) {
             style = MaterialTheme.typography.displayMedium,
             color = MaterialTheme.colorScheme.onSecondary,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
         )
         Text(
             text = "See All",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.primary,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.clickable { onClick() }
+
         )
     }
 

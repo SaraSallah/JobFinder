@@ -20,4 +20,7 @@ interface JobFinderService {
     @GET("remote-jobs/categories")
     suspend fun getAllCategory() : CategoriesDto
 
+    @GET("remote-jobs")
+    suspend fun getAllJobsFromCategory(@Query("category") category: String ):JobsDto
+
 }

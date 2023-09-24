@@ -8,11 +8,14 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.jobfinder.ui.features.home.CategoryUiState
+import com.example.jobfinder.ui.features.category.CategoryUiState
 import com.example.jobfinder.ui.theme.dimens
 
 @Composable
-fun CategoriesLazyRow(categories : List<CategoryUiState>) {
+fun CategoriesLazyRow(
+    categories: List<CategoryUiState>,
+    onClick: () -> Unit,
+) {
     LazyRow(
         modifier = Modifier
             .wrapContentWidth()

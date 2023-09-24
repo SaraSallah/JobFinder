@@ -23,14 +23,22 @@ class JobFinderRepositoryImp @Inject constructor(
     override suspend fun searchJobList(limit: Int?, keyWord: String): List<JobDetails> =
         wrap {
 //            limit?.let {
-                jobFinderService.searchJobList( keyWord).jobs
+            jobFinderService.searchJobList(keyWord).jobs
 //        }!!
                 ?.map { it!!.toJobDetails() }
         }.toData() ?: emptyList()
-    override suspend fun getAllCategory() :List<Category> =
+
+    override suspend fun getAllCategory(): List<Category> =
         wrap {
             jobFinderService.getAllCategory().category!!.map { it!!.toCategory() }
         }.toData() ?: emptyList()
+
+    override suspend fun getAllJobsFromCategory(category: String): List<JobDetails> =
+        wrap {
+            jobFinderService.getAllJobsFromCategory(category).jobs
+                ?.map { it!!.toJobDetails() }
+        }.toData() ?: emptyList()
+
 }
 
 

@@ -2,6 +2,7 @@ package com.example.jobfinder.ui.features.home
 
 import com.example.domain.model.Category
 import com.example.domain.model.JobDetails
+import com.example.jobfinder.ui.features.category.CategoryUiState
 import com.example.jobfinder.ui.features.job_details.JobUiState
 
 data class HomeUiState(
@@ -11,11 +12,11 @@ data class HomeUiState(
     val categories: List<CategoryUiState> = emptyList(),
 )
 
-data class CategoryUiState(
-    val id: Int = 0,
-    val name: String = "",
-    val slug: String = "",
-)
+//data class CategoryUiState(
+//    val id: Int = 0,
+//    val name: String = "",
+//    val slug: String = "",
+//)
 
 fun List<Category>.toCategoryUiState(): List<CategoryUiState> {
     return map {

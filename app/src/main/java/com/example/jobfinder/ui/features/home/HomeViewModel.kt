@@ -71,5 +71,9 @@ class HomeViewModel @Inject constructor(
     override fun onClickSearchIcon(){
         effectActionExecutor(_effect ,HomeUiEffect.NavigateToSearchScreenEffect)
     }
+   override fun onCLickSeeALl(){
+       effectActionExecutor(_effect,HomeUiEffect.NavigateToCategoryScreenEffect)
+
+   }
 
 }
