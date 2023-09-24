@@ -28,14 +28,14 @@ abstract class BaseViewModel<T, E>(initialState: T) : ViewModel() {
 
     private var job: Job? = null
 
-//    protected fun <T : BaseUiEffect> effectActionExecutor(
-//        _effect: MutableSharedFlow<T>,
-//        effect: T,
-//    ) {
-//        viewModelScope.launch {
-//            _effect.emit(effect)
-//        }
-//    }
+    protected fun <T : BaseUiEffect> effectActionExecutor(
+        _effect: MutableSharedFlow<T>,
+        effect: T,
+    ) {
+        viewModelScope.launch {
+            _effect.emit(effect)
+        }
+    }
 
     protected fun <T> tryToExecute(
         function: suspend () -> T,

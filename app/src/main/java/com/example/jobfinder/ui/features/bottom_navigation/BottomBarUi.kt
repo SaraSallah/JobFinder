@@ -118,7 +118,7 @@ fun RowScope.AddItem(
         },
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = white,
-            indicatorColor = MaterialTheme.colorScheme.errorContainer,
+            indicatorColor = MaterialTheme.colorScheme.primary,
             unselectedIconColor = black60
         )
     )

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -40,6 +41,7 @@ fun JobCards(
 ) {
     Card(
         modifier = Modifier
+
             .fillMaxWidth()
             .height(190.dp),
         colors = CardDefaults.cardColors(
@@ -104,8 +106,124 @@ fun JobCards(
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding( horizontal = MaterialTheme.dimens.space16,
-                    vertical = MaterialTheme.dimens.space8),
+                .padding(
+                    horizontal = MaterialTheme.dimens.space16,
+                    vertical = MaterialTheme.dimens.space8
+                ),
+            contentPadding = PaddingValues(end = MaterialTheme.dimens.space16),
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space8)
+        ) {
+            items(tags.size) { index ->
+                val tag = tags[index]
+                tag?.let { CustomChip(text = it) }
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = MaterialTheme.dimens.space16, vertical = 8.dp
+                ),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            Text(
+                text = location,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = date,
+                style = MaterialTheme.typography.bodySmall,
+                color = black37,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+
+}
+
+@Composable
+fun JobCardHome(
+    imageUrl: String,
+    jobTitle: String,
+    companyName: String,
+    tags: List<String?>,
+    location: String,
+    date: String,
+) {
+    Card(
+        modifier = Modifier
+            .width(250.dp)
+            .height(190.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onTertiary
+        ),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(90.dp)
+                .padding(
+                    vertical = MaterialTheme.dimens.space8,
+                    horizontal = MaterialTheme.dimens.space16
+                )
+        ) {
+            ImageNetwork(
+                imageUrl = imageUrl,
+                contentDescription = stringResource(R.string.company_logo),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(.2f),
+                contentScale = ContentScale.Crop,
+
+                )
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.7f)
+                    .padding(
+                        MaterialTheme.dimens.space8
+                    ),
+                verticalArrangement = Arrangement.SpaceAround,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = jobTitle,
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+
+                )
+                Text(
+                    text = companyName,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = black60,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Divider(
+                    color = black60,
+                    thickness = .5.dp,
+                    modifier = Modifier.padding(
+                        top = MaterialTheme.dimens.space8
+                    )
+                )
+            }
+
+
+        }
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = MaterialTheme.dimens.space16,
+                    vertical = MaterialTheme.dimens.space8
+                ),
             contentPadding = PaddingValues(end = MaterialTheme.dimens.space16),
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space8)
         ) {
@@ -149,7 +267,7 @@ fun JobCardPreview() {
         jobTitle = "Ui/Ux Designer",
         companyName = "AirBnB",
         jobType = "full_time",
-        tags = listOf("Ui" , "Ux" , "Designer"),
+        tags = listOf("Ui", "Ux", "Designer"),
         category = "Designer",
         location = "Egypt",
         date = "22/2/22"

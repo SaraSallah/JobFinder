@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
     override val TAG: String = this::class.simpleName.toString()
 
     init {
-//        getAllJobs()
+        getAllJobs()
         getAllCategory()
     }
 
@@ -67,6 +67,9 @@ class HomeViewModel @Inject constructor(
             it.copy(isLoading = false, isError = true)
 
         }
+    }
+    override fun onClickSearchIcon(){
+        effectActionExecutor(_effect ,HomeUiEffect.NavigateToSearchScreenEffect)
     }
 
 }
