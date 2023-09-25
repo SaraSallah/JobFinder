@@ -42,10 +42,10 @@ fun CategoryContent(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Loading(state = state.isLoading)
-            CategoriesLazyRow(state.categories , onClick = {})
+            Loading(state = state.isLoading &&state.categories.isNotEmpty())
+            CategoriesLazyRow(state.categories  ,onClick =  listener::onClickCategory  )
 
-            ContentVisibility(state = state.jobs.isNotEmpty() && !state.isLoading) {
+            ContentVisibility(state = state.jobs.isNotEmpty() ) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -53,18 +53,21 @@ fun CategoryContent(
                     contentPadding = PaddingValues(MaterialTheme.dimens.space16),
                     verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space16)
                 ) {
-                    items(state.jobs.size) { index ->
-                        val job = state.jobs[index]
-                        JobCards(
-                            imageUrl = job.companyLogo,
-                            jobTitle = job.title,
-                            companyName =job.companyName ,
-                            jobType = job.jobType,
-                            category = job.category,
-                            tags = job.tags,
-                            location = job.location,
-                            date = job.publishedDate
-                        )
+                        items(state.jobs.size) { index ->
+                            val job = state.jobs[index]
+
+                            JobCards(
+                                modifier =Modifier ,
+                                imageUrl = job.companyLogo,
+                                jobTitle = job.title,
+                                companyName =job.companyName ,
+                                tags = job.tags,
+                                location = job.location,
+                                date = job.publishedDate
+                            )
+                        }
+
+
                     }
                 }
 
@@ -73,4 +76,3 @@ fun CategoryContent(
         }
     }
 
-}

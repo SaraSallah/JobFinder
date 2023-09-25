@@ -59,6 +59,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation("androidx.leanback:leanback:1.0.0")
     Dependencies.firebaseDependency.forEach { implementation(it) }
     Dependencies.uiDependencies.forEach { implementation(it) }
     Dependencies.composeDependency.forEach { implementation(it) }

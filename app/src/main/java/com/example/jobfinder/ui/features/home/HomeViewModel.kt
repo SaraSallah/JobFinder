@@ -34,11 +34,16 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onGetAllJobsSuccess(jobs: List<JobDetails>) {
-        _state.update {
-            it.copy(
+        val updatedJobs = jobs.toSearchForJobUiState()
+        val jobCategory = updatedJobs.filter { it.category =="Software Development" }
+        _state.update { uiState ->
+            uiState.copy(
+                jobs = updatedJobs,
+                salariesJob = jobCategory,
                 isLoading = false,
-                jobs = jobs.toSearchForJobUiState()
-            )
+
+
+                )
         }
     }
 
@@ -54,8 +59,7 @@ class HomeViewModel @Inject constructor(
     private fun onGetAllCategorySuccess(categories: List<Category>) {
         _state.update {
             it.copy(
-                isLoading = false,
-                categories = categories.toCategoryUiState()
+                categories = categories.toCategoryHomeUiState()
             )
         }
         log(_state.value.categories.toString())

@@ -5,7 +5,6 @@ import com.example.domain.model.JobDetails
 import com.example.domain.usecase.GetAllCategoryUseCase
 import com.example.domain.usecase.GetAllJobsFromCategory
 import com.example.jobfinder.ui.base.BaseViewModel
-import com.example.jobfinder.ui.features.home.toCategoryUiState
 import com.example.jobfinder.ui.features.search.toSearchForJobUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -36,13 +35,18 @@ class CategoryViewModel @Inject constructor(
     }
 
     private fun onGetAllCategorySuccess(categories: List<Category>) {
+        val updateCategories = categories.toCategoriesUiState()
+        val updatedCategory = updateSelectedCategory(updateCategories
+            , updateCategories.first().id)
         _state.update {
             it.copy(
                 isLoading = false,
-                categories = categories.toCategoriesUiState(),
+                categories = updatedCategory,
                 selectedCategory = categories.first().name
             )
         }
+
+
         getAllJobsFromCategory(_state.value.selectedCategory)
 
     }
@@ -79,9 +83,23 @@ class CategoryViewModel @Inject constructor(
     }
 
     override fun onClickCategory(categoryId: Int) {
+        val updatedCategory = updateSelectedCategory(_state.value.categories, categoryId)
         _state.update {
-            it.copy(selectedCategory = it.categories[categoryId].name,
-            )
+            it.copy(
+                categories = updatedCategory,
+                selectedCategory = it.categories.find { it.id ==categoryId }!!.name,
+
+                )
+        }
+        getAllJobsFromCategory(_state.value.selectedCategory)
+    }
+
+    private fun updateSelectedCategory(
+        categories: List<CategoryUiState>,
+        selectedCategoryId: Int,
+    ): List<CategoryUiState> {
+        return categories.map { category ->
+            category.copy(selectedCategory = category.id == selectedCategoryId)
         }
     }
 

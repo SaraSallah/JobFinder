@@ -66,27 +66,17 @@ fun SearchContent(
             ) {
                 items(state.jobs.size) { index ->
                     val job = state.jobs[index]
-//                    JobCard(
-//                        imageUrl = job.companyLogo,
-//                        jobTitle = job.title,
-//                        companyName = job.companyName,
-//                        tags = job.tags,
-//                        location = job.location,
-//                        date = job.publishedDate
-//                    )
                     JobCards(
+                        modifier = Modifier,
                         imageUrl = job.companyLogo,
                         jobTitle = job.title,
                         companyName =job.companyName ,
-                        jobType = job.jobType,
-                        category = job.category,
                         tags = job.tags,
                         location = job.location,
                         date = job.publishedDate
                     )
                 }
             }
-
         }
 
         ContentVisibility(state = state.query.isBlank()) {
