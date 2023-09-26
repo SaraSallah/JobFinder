@@ -42,37 +42,38 @@ fun CategoryContent(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Loading(state = state.isLoading &&state.categories.isNotEmpty())
-            CategoriesLazyRow(state.categories  ,onClick =  listener::onClickCategory  )
-
-            ContentVisibility(state = state.jobs.isNotEmpty() ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    contentPadding = PaddingValues(MaterialTheme.dimens.space16),
-                    verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space16)
-                ) {
+            Loading(state = state.isLoading && state.categories.isEmpty())
+            CategoriesLazyRow(state.categories, onClick = listener::onClickCategory)
+            Column {
+                Loading(state = state.isLoading )
+                ContentVisibility(state = state.jobs.isNotEmpty()
+                        && !state.isLoading && !state.isError) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        contentPadding = PaddingValues(MaterialTheme.dimens.space16),
+                        verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space16)
+                    ) {
                         items(state.jobs.size) { index ->
                             val job = state.jobs[index]
 
                             JobCards(
-                                modifier =Modifier ,
+                                modifier = Modifier,
+                                id =job.jobId ,
                                 imageUrl = job.companyLogo,
                                 jobTitle = job.title,
-                                companyName =job.companyName ,
+                                companyName = job.companyName,
                                 tags = job.tags,
                                 location = job.location,
-                                date = job.publishedDate
+                                date = job.publishedDate,{}
                             )
                         }
-
-
                     }
                 }
 
             }
-
+        }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.jobfinder.ui.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,18 +33,20 @@ import com.example.jobfinder.ui.theme.dimens
 @Composable
 fun JobCards(
     modifier: Modifier,
+    id : Int ,
     imageUrl: String,
     jobTitle: String,
     companyName: String,
     tags: List<String?>,
     location: String,
     date: String,
+    onClick :(id : Int)->Unit
 ) {
     Card(
         modifier = modifier
 
             .fillMaxWidth()
-            .height(190.dp),
+            .height(190.dp).clickable { onClick(id) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onTertiary
         ),
@@ -160,12 +163,13 @@ fun SmallJobCard(
 fun JobCardPreview() {
     JobCards(
         modifier = Modifier,
+        id = 0 ,
         imageUrl = "https://picsum.photos/200/300",
         jobTitle = "Ui/Ux Designer",
         companyName = "AirBnB",
         tags = listOf("Ui", "Ux", "Designer"),
         location = "Egypt",
-        date = "22/2/22"
+        date = "22/2/22",{}
     )
 
 }

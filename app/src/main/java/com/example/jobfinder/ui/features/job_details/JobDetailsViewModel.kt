@@ -1,5 +1,6 @@
 package com.example.jobfinder.ui.features.job_details
 
+import androidx.lifecycle.SavedStateHandle
 import com.example.domain.model.JobDetails
 import com.example.domain.usecase.GetJobDetailsUseCase
 import com.example.jobfinder.ui.base.BaseViewModel
@@ -11,9 +12,11 @@ import javax.inject.Inject
 @HiltViewModel
 class JobDetailsViewModel @Inject constructor(
     private val getJobDetails: GetJobDetailsUseCase,
-) : BaseViewModel<JobDetailsUiState, JobDetailsUiEffect>(JobDetailsUiState()) {
+    savedStateHandle: SavedStateHandle,
+
+    ) : BaseViewModel<JobDetailsUiState, JobDetailsUiEffect>(JobDetailsUiState()) {
     override val TAG: String = this::class.simpleName.toString()
-    private val jobId: Int = 1773876
+    private val args =JobDetailsArgs(savedStateHandle)
     init {
         getJobDetails()
 
@@ -21,7 +24,7 @@ class JobDetailsViewModel @Inject constructor(
     fun getJobDetails(){
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
-            {getJobDetails.getJobDetails(jobId)},
+            {getJobDetails.getJobDetails(args.jobID.toInt())},
             ::onGetJobDetailsSuccess,
             ::onGetJobDetailsError
         )

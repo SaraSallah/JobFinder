@@ -80,4 +80,8 @@ class HomeViewModel @Inject constructor(
 
    }
 
+    override fun onClickJob(jobId: Int) {
+        effectActionExecutor(_effect, HomeUiEffect.NavigateToJobDetailsScreen(jobId))
+
+    }
 }

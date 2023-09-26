@@ -6,6 +6,7 @@ import com.example.jobfinder.ui.features.bottom_navigation.LocalNavigationProvid
 import com.example.jobfinder.ui.features.category.categoryRoute
 import com.example.jobfinder.ui.features.favorite.favoriteRoute
 import com.example.jobfinder.ui.features.home.homeRoute
+import com.example.jobfinder.ui.features.job_details.jobDetailsRoute
 import com.example.jobfinder.ui.features.profile.profileRoute
 import com.example.jobfinder.ui.features.search.searchRoute
 
@@ -20,6 +21,7 @@ fun MainNavGraph(){
         favoriteRoute()
         profileRoute()
         categoryRoute()
+        jobDetailsRoute()
 
     }
 } 

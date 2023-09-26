@@ -68,12 +68,13 @@ fun SearchContent(
                     val job = state.jobs[index]
                     JobCards(
                         modifier = Modifier,
+                        id = job.jobId ,
                         imageUrl = job.companyLogo,
                         jobTitle = job.title,
                         companyName =job.companyName ,
                         tags = job.tags,
                         location = job.location,
-                        date = job.publishedDate
+                        date = job.publishedDate,{}
                     )
                 }
             }

@@ -24,6 +24,7 @@ import com.example.jobfinder.ui.composables.JobCards
 import com.example.jobfinder.ui.composables.Loading
 import com.example.jobfinder.ui.features.category.navigateToCategoryScreen
 import com.example.jobfinder.ui.features.home.composable.HomeHeader
+import com.example.jobfinder.ui.features.job_details.navigateToJobDetailsScreen
 import com.example.jobfinder.ui.features.search.composble.JobCard
 import com.example.jobfinder.ui.features.search.navigateToSearchScreen
 import com.example.jobfinder.ui.theme.JobFinderTheme
@@ -39,6 +40,8 @@ fun HomeScreen(
         when (effect) {
             HomeUiEffect.NavigateToSearchScreenEffect -> navController.navigateToSearchScreen()
             HomeUiEffect.NavigateToCategoryScreenEffect -> navController.navigateToCategoryScreen()
+             is HomeUiEffect.NavigateToJobDetailsScreen ->
+                 navController.navigateToJobDetailsScreen(effect.jobId)
 
         }
 
@@ -80,12 +83,14 @@ fun HomeContent(
                             modifier = Modifier
                                 .width(250.dp)
                                 .height(190.dp),
+                            id = job.jobId ,
                             imageUrl = job.companyLogo,
                             jobTitle = job.title,
                             companyName = job.companyName,
                             tags = job.tags,
                             location = job.location,
-                            date = job.publishedDate
+                            date = job.publishedDate,
+                            onClick = listener::onClickJob
                         )
                     }
                 }
