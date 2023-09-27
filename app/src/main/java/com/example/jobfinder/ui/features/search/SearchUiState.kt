@@ -4,8 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.domain.model.JobDetails
 import com.example.jobfinder.ui.features.job_details.JobUiState
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import com.example.jobfinder.ui.features.job_details.formatPublishedDate
 
 data class SearchUiState(
     val isLoading: Boolean = false,
@@ -14,25 +13,25 @@ data class SearchUiState(
     val query: String = "",
 )
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun List<JobDetails>.toSearchForJobUiState():List<JobUiState>{
     return map{
         JobUiState(
-            jobId = it.jobId ,
-            url = it.url ,
-            title = it.title ,
-            companyName = it.companyName ,
-            companyLogo = it.companyLogo ,
-            companyLogoUrl = it.companyLogoUrl ,
-            category = it.category ,
-            tags = it.tags ,
-            jobType = it.jobType ,
-             publishedDate = it.publishedDate ,
-            salary = it.salary  ,
-            description = it.description ,
-            location = it.location
+            jobId = it.jobId,
+            url = it.url,
+            title = it.title,
+            companyName = it.companyName,
+            companyLogo = it.companyLogo,
+            companyLogoUrl = it.companyLogoUrl,
+            category = it.category,
+            tags = it.tags,
+            jobType = it.jobType,
+            publishedDate = it.publishedDate.formatPublishedDate(),
+            salary = it.salary,
+            description = it.description,
+            location = it.location,
         )
 
-
     }
-
 }
+

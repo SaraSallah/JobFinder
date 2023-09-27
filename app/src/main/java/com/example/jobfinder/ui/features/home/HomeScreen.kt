@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jobfinder.ui.composables.CategoriesLazyRowDesign
 import com.example.jobfinder.ui.composables.ContentVisibility
+import com.example.jobfinder.ui.composables.ErrorPlaceHolder
 import com.example.jobfinder.ui.composables.EventHandler
 import com.example.jobfinder.ui.composables.HomeRow
 import com.example.jobfinder.ui.composables.JobCards
@@ -60,11 +61,15 @@ fun HomeContent(
     listener: HomeInteractionListener
 ) {
     JobFinderTheme {
-       Loading(state = state.isLoading || (state.jobs.isEmpty()
-               && state.categories.isEmpty()))
-        ContentVisibility(state = !state.isLoading && !state.isError
-                && state.jobs.isNotEmpty()
-                && state.categories.isNotEmpty()
+        Loading(
+            state = state.isLoading || (state.jobs.isEmpty()
+                    && state.categories.isEmpty())
+        )
+        ErrorPlaceHolder(state = state.isError)
+        ContentVisibility(
+            state = !state.isLoading && !state.isError
+                    && state.jobs.isNotEmpty()
+                    && state.categories.isNotEmpty()
         ) {
             Column(
                 modifier = Modifier.fillMaxSize()

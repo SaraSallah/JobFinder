@@ -1,5 +1,7 @@
 package com.example.jobfinder.ui.features.category
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.domain.model.Category
 import com.example.domain.model.JobDetails
 import com.example.domain.usecase.GetAllCategoryUseCase
@@ -8,9 +10,9 @@ import com.example.jobfinder.ui.base.BaseViewModel
 import com.example.jobfinder.ui.features.search.toSearchForJobUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
-import org.xml.sax.ErrorHandler
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val getAllCategoryUseCase: GetAllCategoryUseCase,
@@ -25,15 +27,17 @@ class CategoryViewModel @Inject constructor(
         getAllCategories()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getAllCategories() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
             { getAllCategoryUseCase.invoke() },
-            ::onGetAllCategorySuccess,
+            this::onGetAllCategorySuccess,
             ::onError
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun onGetAllCategorySuccess(categories: List<Category>) {
         val updateCategories = categories.toCategoriesUiState()
         val updatedCategory = updateSelectedCategory(updateCategories
@@ -51,6 +55,7 @@ class CategoryViewModel @Inject constructor(
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getAllJobsFromCategory(category: String) {
         _state.update {
             it.copy(
@@ -66,6 +71,7 @@ class CategoryViewModel @Inject constructor(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun onGetAllJobsSuccess(jobs: List<JobDetails>) {
         _state.update {
             it.copy(
@@ -75,13 +81,14 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    private fun onError(error: ErrorHandler) {
+    private fun onError(error: Throwable) {
         _state.update {
             it.copy(isLoading = false, isError = true)
 
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onClickCategory(categoryId: Int) {
         val updatedCategory = updateSelectedCategory(_state.value.categories, categoryId)
         _state.update {

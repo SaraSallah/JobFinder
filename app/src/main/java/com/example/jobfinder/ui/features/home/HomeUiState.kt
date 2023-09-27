@@ -1,7 +1,6 @@
 package com.example.jobfinder.ui.features.home
 
 import com.example.domain.model.Category
-import com.example.domain.model.JobDetails
 import com.example.jobfinder.R
 import com.example.jobfinder.ui.features.job_details.JobUiState
 
@@ -52,4 +51,5 @@ fun List<Category>.toCategoryHomeUiState(): List<CategoryUiState> {
         )
     }
 }
+
 

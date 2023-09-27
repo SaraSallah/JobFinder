@@ -1,5 +1,7 @@
 package com.example.jobfinder.ui.features.home
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.domain.model.Category
 import com.example.domain.model.JobDetails
 import com.example.domain.usecase.GetAllCategoryUseCase
@@ -8,9 +10,9 @@ import com.example.jobfinder.ui.base.BaseViewModel
 import com.example.jobfinder.ui.features.search.toSearchForJobUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
-import org.xml.sax.ErrorHandler
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getAllJobsUseCase: GetJobListUseCase,
@@ -24,6 +26,7 @@ class HomeViewModel @Inject constructor(
         getAllCategory()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getAllJobs() {
         _state.update { it.copy(isLoading = true) }
         tryToExecute(
@@ -33,6 +36,7 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun onGetAllJobsSuccess(jobs: List<JobDetails>) {
         val updatedJobs = jobs.toSearchForJobUiState()
         val jobCategory = updatedJobs.filter { it.category =="Software Development" }
@@ -66,14 +70,15 @@ class HomeViewModel @Inject constructor(
 
     }
 
-    private fun onError(error: ErrorHandler) {
+    private fun onError(error: Throwable) {
         _state.update {
             it.copy(isLoading = false, isError = true)
 
         }
     }
-    override fun onClickSearchIcon(){
-        effectActionExecutor(_effect ,HomeUiEffect.NavigateToSearchScreenEffect)
+
+    override fun onClickSearchIcon() {
+        effectActionExecutor(_effect, HomeUiEffect.NavigateToSearchScreenEffect)
     }
    override fun onCLickSeeALl(){
        effectActionExecutor(_effect,HomeUiEffect.NavigateToCategoryScreenEffect)

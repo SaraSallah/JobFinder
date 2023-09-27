@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.xml.sax.ErrorHandler
 
 abstract class BaseViewModel<T, E>(initialState: T) : ViewModel() {
     abstract val TAG: String
@@ -37,37 +36,55 @@ abstract class BaseViewModel<T, E>(initialState: T) : ViewModel() {
         }
     }
 
-    protected fun <T> tryToExecute(
-        function: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (t: ErrorHandler) -> Unit,
-        dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    ) {
-        viewModelScope.launch(dispatcher) {
-            handleException(
-                onError
-            ) {
-                val result = function()
-                log("tryToExecute: $result ")
-                onSuccess(result)
-            }
-        }
-    }
-
-    private suspend fun <T> handleException(
-        onError: (t: ErrorHandler) -> Unit,
-        action: suspend () -> T,
-    ) {
+//    protected fun <T> tryToExecute(
+//        function: suspend () -> T,
+//        onSuccess: (T) -> Unit,
+//        onError: (t: ErrorHandler) -> Unit,
+//        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+//    ) {
+//        viewModelScope.launch(dispatcher) {
+//            handleException(
+//                onError
+//            ) {
+//                val result = function()
+//                log("tryToExecute: $result ")
+//                onSuccess(result)
+//            }
+//        }
+//    }
+//
+//    private suspend fun <T> handleException(
+//        onError: (t: ErrorHandler) -> Unit,
+//        action: suspend () -> T,
+//    ) {
+//        try {
+//            action()
+//        } catch (exception: Exception) {
+//            log("tryToExecute error: $exception")
+//            when (exception) {
+//
+//
+//            }
+//        }
+//    }
+protected fun <T> tryToExecute(
+    function: suspend () -> T,
+    onSuccess: (T) -> Unit,
+    onError: (Throwable) -> Unit,
+    dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
+    viewModelScope.launch(dispatcher) {
         try {
-            action()
-        } catch (exception: Exception) {
+            val result = function()
+            log("tryToExecute: $result ")
+            onSuccess(result)
+        } catch (exception: Throwable) {
             log("tryToExecute error: $exception")
-            when (exception) {
-
-
-            }
+            onError(exception)
         }
     }
+}
+
 
 
 }

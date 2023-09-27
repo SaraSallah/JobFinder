@@ -13,12 +13,10 @@ class JobFinderRepositoryImp @Inject constructor(
     private val jobFinderService: JobFinderService,
 ) : JobFinderRepository {
     override suspend fun getAllJobs(): List<JobDetails> =
-        wrap { jobFinderService.getListAllJobs().jobs!!.map { it!!.toJobDetails() } }.toData()
-            ?: emptyList()
+        wrap { jobFinderService.getListAllJobs().jobs!!.map { it!!.toJobDetails() } }.toData()!!
 
     override suspend fun getLimitedJobList(limit: Int): List<JobDetails> =
-        wrap { jobFinderService.getListJobs(limit).jobs!!.map { it!!.toJobDetails() } }.toData()
-            ?: emptyList()
+        wrap { jobFinderService.getListJobs(limit).jobs!!.map { it!!.toJobDetails() } }.toData()!!
 
     override suspend fun searchJobList(limit: Int?, keyWord: String): List<JobDetails> =
         wrap {
@@ -26,18 +24,18 @@ class JobFinderRepositoryImp @Inject constructor(
             jobFinderService.searchJobList(keyWord).jobs
 //        }!!
                 ?.map { it!!.toJobDetails() }
-        }.toData() ?: emptyList()
+        }.toData() !!
 
     override suspend fun getAllCategory(): List<Category> =
         wrap {
             jobFinderService.getAllCategory().category!!.map { it!!.toCategory() }
-        }.toData() ?: emptyList()
+        }.toData() !!
 
     override suspend fun getAllJobsFromCategory(category: String): List<JobDetails> =
         wrap {
             jobFinderService.getAllJobsFromCategory(category).jobs
                 ?.map { it!!.toJobDetails() }
-        }.toData() ?: emptyList()
+        }.toData()!!
 
 }
 

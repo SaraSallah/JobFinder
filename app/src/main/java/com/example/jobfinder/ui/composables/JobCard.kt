@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jobfinder.R
 import com.example.jobfinder.ui.theme.Shapes
-import com.example.jobfinder.ui.theme.black37
 import com.example.jobfinder.ui.theme.black60
 import com.example.jobfinder.ui.theme.dimens
 
@@ -46,7 +45,8 @@ fun JobCards(
         modifier = modifier
 
             .fillMaxWidth()
-            .height(190.dp).clickable { onClick(id) },
+            .height(190.dp)
+            .clickable { onClick(id) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onTertiary
         ),
@@ -141,7 +141,7 @@ fun JobCards(
             Text(
                 text = date,
                 style = MaterialTheme.typography.bodySmall,
-                color = black37,
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -150,12 +150,7 @@ fun JobCards(
 
 }
 
-@Composable
-fun SmallJobCard(
 
-) {
-
-}
 
 
 @Preview
