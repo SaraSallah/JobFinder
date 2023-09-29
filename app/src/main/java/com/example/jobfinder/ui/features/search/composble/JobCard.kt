@@ -1,5 +1,6 @@
 package com.example.jobfinder.ui.features.search.composble
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,16 +33,15 @@ fun JobCard(
     imageUrl: String,
     jobTitle: String,
     companyName: String,
-    jobType  :String
-//    tags: List<String?>,
-//    location: String,
-//    date: String,
+    jobType  :String ,
+    onCLick :() ->Unit
 
     ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(85.dp),
+            .height(85.dp)
+            .clickable { onCLick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onTertiary
         ),
@@ -105,19 +105,7 @@ fun JobCard(
             }}
 
         }
-//        LazyRow(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding( horizontal = MaterialTheme.dimens.space16,
-//                    vertical = MaterialTheme.dimens.space8),
-//            contentPadding = PaddingValues(end = MaterialTheme.dimens.space16),
-//            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.dimens.space8)
-//        ) {
-//            items(tags.size) { index ->
-//                val tag = tags[index]
-//                tag?.let { CategoryChip(text = it,state =true){} }
-//            }
-//        }
+
 
 
 
@@ -131,10 +119,8 @@ fun PreviewJobCard() {
         imageUrl ="https://picsum.photos/200/300",
         jobTitle = "Ui/Ux Designer",
         companyName = "AirBnB" ,
-//        tags = listOf("ui","ux"),
         jobType ="Egypt" ,
-//        date = "15/4/2000"
-    )
+    ){}
 }
 
 

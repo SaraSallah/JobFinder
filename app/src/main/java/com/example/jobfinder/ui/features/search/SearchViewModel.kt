@@ -1,8 +1,11 @@
 package com.example.jobfinder.ui.features.search
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.SearchJobUseCase
 import com.example.jobfinder.ui.base.BaseViewModel
+import com.example.jobfinder.ui.features.home.HomeUiEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -14,6 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchJobUseCase: SearchJobUseCase,
@@ -42,6 +46,7 @@ class SearchViewModel @Inject constructor(
 //         searchForJob()
 
      }
+    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(FlowPreview::class)
     private fun observeKeyword() {
         viewModelScope.launch(Dispatchers.Unconfined) {
@@ -50,6 +55,11 @@ class SearchViewModel @Inject constructor(
             }.collect { searchForJob() }
         }
     }
+    override fun onClickJobJob(jobId : Int) {
+        effectActionExecutor(_effect ,SearchUiEffect.NavigateToJobDetailsScreen(jobId = jobId))
+
+    }
+
 
 
 

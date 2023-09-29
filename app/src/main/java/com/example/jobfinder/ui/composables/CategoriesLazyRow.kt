@@ -32,7 +32,6 @@ fun CategoriesLazyRow(
         }
     }
 }
-
 @Composable
 fun CategoriesLazyRowDesign(
     categories: List<com.example.jobfinder.ui.features.home.CategoryUiState>,

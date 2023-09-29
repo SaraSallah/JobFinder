@@ -63,7 +63,7 @@ class HomeViewModel @Inject constructor(
     private fun onGetAllCategorySuccess(categories: List<Category>) {
         _state.update {
             it.copy(
-                categories = categories.toCategoryHomeUiState()
+                categories = categories.take(6).toCategoryHomeUiState()
             )
         }
         log(_state.value.categories.toString())
@@ -80,7 +80,7 @@ class HomeViewModel @Inject constructor(
     override fun onClickSearchIcon() {
         effectActionExecutor(_effect, HomeUiEffect.NavigateToSearchScreenEffect)
     }
-   override fun onCLickSeeALl(){
+   override fun onCLickSeeALlCategory(){
        effectActionExecutor(_effect,HomeUiEffect.NavigateToCategoryScreenEffect)
 
    }

@@ -1,11 +1,16 @@
 package com.example.jobfinder.ui.features.job_details
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.domain.model.JobDetails
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 data class JobDetailsUiState(
     val isLoading: Boolean = false,
@@ -57,15 +62,18 @@ fun String.extractRealWords(): String {
     return this.replace(Regex("<[^>]+>"), "")
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun String.formatPublishedDate(): String {
-    val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-    val publishedDateTime = LocalDateTime.parse(this, dateFormatter)
-    val now = LocalDateTime.now()
-    val duration = Duration.between(publishedDateTime, now)
 
-    val daysAgo = duration.toDays()
-    val hoursAgo = duration.toHours()
+@SuppressLint("SimpleDateFormat")
+fun String.formatPublishedDate(): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    val publishedDate = dateFormat.parse(this)
+    val now = Date()
+
+    val durationMillis = now.time - publishedDate!!.time
+    val secondsAgo = durationMillis / 1000
+    val minutesAgo = secondsAgo / 60
+    val hoursAgo = minutesAgo / 60
+    val daysAgo = hoursAgo / 24
 
     return when {
         daysAgo < 1 -> {
@@ -75,14 +83,18 @@ fun String.formatPublishedDate(): String {
                 else -> "$hoursAgo hours ago"
             }
         }
-
         daysAgo == 1L -> "Yesterday"
-        else -> "$daysAgo days ago"
+        else -> {
+            val dateFormatOutput = SimpleDateFormat("MMM d, yyyy")
+            dateFormatOutput.format(publishedDate)
+        }
     }
 }
 
+
+
 fun String.toJobType(): String {
-    return when (this.toLowerCase()) {
+    return when (this.toLowerCase(Locale.ROOT)) {
         "full_time" -> "Full Time"
         "par_time" -> "Part Time"
         else -> this // Return the original value for any other cases

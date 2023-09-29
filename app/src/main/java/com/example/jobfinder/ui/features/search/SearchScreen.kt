@@ -18,8 +18,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.jobfinder.R
 import com.example.jobfinder.ui.composables.ContentVisibility
+import com.example.jobfinder.ui.composables.EventHandler
 import com.example.jobfinder.ui.composables.JobCards
 import com.example.jobfinder.ui.composables.Loading
+import com.example.jobfinder.ui.composables.SearchPlaceHolder
+import com.example.jobfinder.ui.features.job_details.navigateToJobDetailsScreen
 import com.example.jobfinder.ui.features.search.composble.JobCard
 import com.example.jobfinder.ui.features.search.composble.SearchTextField
 import com.example.jobfinder.ui.theme.dimens
@@ -29,10 +32,17 @@ fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+    EventHandler(effects = viewModel.effect, handleEffect = { effect, navController ->
+        when (effect) {
+            is SearchUiEffect.NavigateToJobDetailsScreen
+            -> navController.navigateToJobDetailsScreen(effect.jobId)
+
+        }        })
     SearchContent(
         state = state,
         listener = viewModel
     )
+
 
 }
 
@@ -74,19 +84,14 @@ fun SearchContent(
                         companyName =job.companyName ,
                         tags = job.tags,
                         location = job.location,
-                        date = job.publishedDate,{}
+                        date = job.publishedDate,
+                        onClick = { listener.onClickJobJob(job.jobId) }
                     )
                 }
             }
         }
 
-        ContentVisibility(state = state.query.isBlank()) {
-            Image(
-                painter = painterResource(id = R.drawable.place_holder_search),
-                contentDescription = ""
-            )
-        }
-
+       SearchPlaceHolder(state = state.query.isBlank())
 
     }
 

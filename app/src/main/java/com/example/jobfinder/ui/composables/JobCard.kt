@@ -39,14 +39,14 @@ fun JobCards(
     tags: List<String?>,
     location: String,
     date: String,
-    onClick :(id : Int)->Unit
+    onClick :()->Unit
 ) {
     Card(
         modifier = modifier
 
             .fillMaxWidth()
             .height(190.dp)
-            .clickable { onClick(id) },
+            .clickable { onClick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onTertiary
         ),
