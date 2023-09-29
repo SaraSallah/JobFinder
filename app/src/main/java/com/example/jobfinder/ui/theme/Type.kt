@@ -23,17 +23,17 @@ val Typography = Typography(
     bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
+        fontSize = 16.sp,
     ),
     bodySmall = TextStyle(
         fontFamily =FontFamily.Default,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
+        fontSize = 14.sp,
     ),
     displayLarge = TextStyle(
         fontFamily =FontFamily.Default,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = 24.sp,
     ),
     displaySmall = TextStyle(
         fontFamily = FontFamily.Default,

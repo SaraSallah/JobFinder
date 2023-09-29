@@ -3,11 +3,11 @@ package com.example.jobfinder.ui.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -15,11 +15,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jobfinder.ui.theme.Shapes
-import com.example.jobfinder.ui.theme.Typography
+import com.example.jobfinder.R
+import com.example.jobfinder.ui.theme.dimens
 
 @Composable
 fun CompanyCard(
@@ -29,34 +31,55 @@ fun CompanyCard(
 ) {
     Card(
         modifier = Modifier
-            .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
             .height(124.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp,
-        )
+//        elevation = CardDefaults.cardElevation(
+//            defaultElevation = 0.dp,
+//        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onTertiary
+        ),
+        shape = MaterialTheme.shapes.medium
 
-    ) {Row(
+
+    ) {
+        Row(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 8.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
+            .fillMaxSize(),
     ){
         ImageNetwork(
             imageUrl = imageUrl,
+            contentDescription = stringResource(R.string.company_logo),
+
             modifier = Modifier
-                .size(120.dp)
-                .clip(Shapes.medium)
+                .weight(0.3f),
+            contentScale = ContentScale.Crop
+
         )
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(0.7f)
+                .padding(
+                    MaterialTheme.dimens.space8
+                ),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
             Text(
                 text = jobTitle,
-                style = Typography.displayMedium
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+
             )
             Text(
                 text = companyName,
-                style = Typography.displayMedium
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSecondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
         }}
@@ -64,11 +87,11 @@ fun CompanyCard(
 
 }
 
-@Preview
+@Preview(widthDp = 320)
 @Composable
 fun PreviewCompanyCard() {
     CompanyCard(
-    imageUrl = "https://i.pinimg.com/originals/0a/0b/9a/0a0b9a4b5b5b3b0b5b5b5b5b5b5b5b5b.jpg",
+    imageUrl ="https://picsum.photos/200/300",
         jobTitle = "Ui/Ux Designer",
         companyName = "AirBnB"
     )

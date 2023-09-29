@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">JobFinder</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="favorite">Favorite</string>
 </resources>

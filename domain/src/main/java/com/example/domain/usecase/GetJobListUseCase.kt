@@ -12,4 +12,5 @@ class GetJobListUseCase @Inject constructor(
 
     suspend fun getLimitedJobList(limit : Int):List<JobDetails> =
         jobFinderRepository.getLimitedJobList(limit)
+
 }

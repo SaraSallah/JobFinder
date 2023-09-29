@@ -1,7 +1,10 @@
 package com.example.data.repository
 
+import com.example.data.source.mapper.toCategory
 import com.example.data.source.mapper.toJobDetails
 import com.example.data.source.network.JobFinderService
+import com.example.data.utils.Results
+import com.example.domain.model.Category
 import com.example.domain.model.JobDetails
 import com.example.domain.repository.JobFinderRepository
 import javax.inject.Inject
@@ -10,13 +13,41 @@ class JobFinderRepositoryImp @Inject constructor(
     private val jobFinderService: JobFinderService,
 ) : JobFinderRepository {
     override suspend fun getAllJobs(): List<JobDetails> =
-        jobFinderService.getListAllJobs().jobs!!.map { it!!.toJobDetails() }
+        wrap { jobFinderService.getListAllJobs().jobs!!.map { it!!.toJobDetails() } }.toData()!!
 
     override suspend fun getLimitedJobList(limit: Int): List<JobDetails> =
-        jobFinderService.getListJobs(limit).jobs!!.map { it!!.toJobDetails() }
+        wrap { jobFinderService.getListJobs(limit).jobs!!.map { it!!.toJobDetails() } }.toData()!!
 
-    override suspend fun searchJobList(limit: Int, keyWord: String): List<JobDetails> =
-        jobFinderService.searchJobList(limit, keyWord).jobs!!.map { it!!.toJobDetails() }
+    override suspend fun searchJobList(limit: Int?, keyWord: String): List<JobDetails> =
+        wrap {
+//            limit?.let {
+            jobFinderService.searchJobList(keyWord).jobs
+//        }!!
+                ?.map { it!!.toJobDetails() }
+        }.toData() !!
 
+    override suspend fun getAllCategory(): List<Category> =
+        wrap {
+            jobFinderService.getAllCategory().category!!.map { it!!.toCategory() }
+        }.toData() !!
+
+    override suspend fun getAllJobsFromCategory(category: String): List<JobDetails> =
+        wrap {
+            jobFinderService.getAllJobsFromCategory(category).jobs
+                ?.map { it!!.toJobDetails() }
+        }.toData()!!
 
 }
+
+
+inline fun <T> wrap(block: () -> T): Results<T> {
+    return try {
+        val result = block()
+        Results.Success(result)
+    } catch (e: Exception) {
+        val errorMessage = e.message ?: "An unknown error occurred"
+        Results.Error(errorMessage)
+    }
+}
+
+
